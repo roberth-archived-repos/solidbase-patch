@@ -5,7 +5,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>solidbase</groupId>
+	<groupId>org.solidbase</groupId>
 	<artifactId>solidbase</artifactId>
 	<version>1.6.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -48,36 +48,110 @@
 	</properties>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/version.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/version.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <!-- sourceDirectory>src</sourceDirectory -->
+        <!--testResources>
+            <testResource><directory>src/main/resources</directory>
+                <targetPath></targetPath>
+            </testResource>
+            <testResource><directory>src/test/resources</directory></testResource>
+        </testResources>
 		<resources>
 			<resource>
-				<directory>src</directory>
+				<directory>src/main/resources</directory>
 				<excludes><exclude>**/*.java</exclude></excludes>
 			</resource>
-		</resources>
-		<testSourceDirectory>test/src</testSourceDirectory>
+		</resources-->
+		<!-- testSourceDirectory>test/src</testSourceDirectory -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<includes><include>**/*.java</include></includes>
-					<!-- verbose>3</verbose -->
-					<argLine>-Xmx256M -javaagent:${settings.localRepository}/mockit/jmockit/0.998/jmockit-0.998.jar</argLine>
-					<!-- useSystemClassLoader>true</useSystemClassLoader -->
-					<!-- forkMode>always</forkMode -->
-					<!-- baseDir>test</baseDir -->
-					<workingDirectory>test</workingDirectory>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <!-- includes><include>**/*.java</include></includes -->
+                    <!-- verbose>3</verbose -->
+                    <!-- argLine>-Xmx256M</argLine -->
+                    <!-- useSystemClassLoader>true</useSystemClassLoader -->
+                    <!-- forkMode>always</forkMode -->
+                    <!-- baseDir>test</baseDir -->
+                    <!-- workingDirectory>test</workingDirectory -->
+                </configuration>
+            </plugin>
+            <!-- BEGIN PACKAGING -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <includeScope>provided</includeScope>
+                            <includeScope>compile</includeScope>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>dependency/</classpathPrefix>
+                            <mainClass>solidbase.Main</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <url>${project.url}</url>
+                            <key>value</key>
+                            <Implementation-Title>SolidBase</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor-Id>org.solidbase</Implementation-Vendor-Id>
+                            <Version>${project.version}</Version>
+                            <Project-Name>${project.name}</Project-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- END PACKAGING -->
 		</plugins>
 	</build>
 	
@@ -86,7 +160,7 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -161,22 +235,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<repositories>
-		<!-- Project private repository -->
-		<repository>
-			<id>private</id>
-			<name>SolidBase private dependencies</name>
-			<url>file:repository</url>
-			<releases>
-				<checksumPolicy>ignore</checksumPolicy>
-			</releases>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<name>Java.net</name>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-	</repositories>
 
 </project>

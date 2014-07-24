@@ -10,6 +10,7 @@ bin/
 build/
 overlays/
 log4j.properties
+derby.log
 
 # jvm dumps
 hs_err_pid*.log
