@@ -1,0 +1,15 @@
+.project
+.classpath
+eclipse-target/
+target/
+.settings/
+*.iml
+.idea/
+.springBeans
+bin/
+build/
+overlays/
+log4j.properties
+
+# jvm dumps
+hs_err_pid*.log
