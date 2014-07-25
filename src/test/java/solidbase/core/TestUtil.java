@@ -16,23 +16,11 @@
 
 package solidbase.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import mockit.Deencapsulation;
-
-import org.apache.tools.ant.Main;
 import org.testng.Assert;
 
-import solidbase.core.PatchProcessor;
-import solidbase.core.SystemException;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.sql.*;
 
 
 public class TestUtil
@@ -186,26 +174,4 @@ public class TestUtil
 		return buf.toString();
 	}
 
-	static public String captureAnt( Runnable runnable )
-	{
-		ByteArrayOutputStream buf = new ByteArrayOutputStream();
-		PrintStream print = new PrintStream( buf );
-		PrintStream origOut = System.out;
-		PrintStream origErr = System.err;
-		System.setOut( print );
-		System.setErr( print );
-		Deencapsulation.setField( Main.class, "out", print );
-		Deencapsulation.setField( Main.class, "err", print );
-		try
-		{
-			runnable.run();
-			print.close();
-		}
-		finally
-		{
-			System.setOut( origOut );
-			System.setErr( origErr );
-		}
-		return buf.toString();
-	}
 }
