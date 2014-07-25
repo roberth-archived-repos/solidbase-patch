@@ -25,12 +25,12 @@ import org.testng.annotations.Test;
 import solidbase.util.RandomAccessLineReader;
 
 
-public class EmptyLines
+public class EmptyLinesTest
 {
 	@Test
 	public void testEmptyLines() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch-emptylines.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch-emptylines.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		Patch patch = patchFile.getPatch( "1.0.1", "1.0.2" );

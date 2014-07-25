@@ -19,7 +19,7 @@ package solidbase.core;
 import java.sql.SQLException;
 import org.testng.annotations.Test;
 
-public class Import
+public class ImportIntegrationTest
 {
 	@Test
 	public void testImport() throws SQLException

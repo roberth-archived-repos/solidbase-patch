@@ -25,12 +25,12 @@ import solidbase.core.FatalException;
 import solidbase.core.PatchFile;
 import solidbase.util.RandomAccessLineReader;
 
-public class DoubleBlock
+public class DoubleBlockTest
 {
 	@Test
 	public void testDoubleBlock() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch-doubleblock.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch-doubleblock.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		try
 		{

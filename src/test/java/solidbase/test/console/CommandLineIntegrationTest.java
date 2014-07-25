@@ -24,8 +24,11 @@ import solidbase.core.FatalException;
 import solidbase.core.TestUtil;
 import solidbase.test.mocks.MockConsole;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class CommandLineTests
+
+public class CommandLineIntegrationTest
 {
 	@Test
 	static public void testCommandLine() throws Exception
@@ -45,13 +48,17 @@ public class CommandLineTests
 				"-upgradefile", "testpatch1.sql" );
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
+		output = output.replaceAll("(Reading property file [^\\n]+\\.properties\\n)+", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 //		System.out.println( "[[[" + output + "]]]" );
 		Assert.assertEquals( output,
-				"Reading property file file:/.../solidbase-default.properties\n" +
-				"Reading property file file:/.../solidbase-default.properties\n" +
-				"SolidBase v1.5.x (http://solidbase.org)\n" +
+				"__READ__\n" +
+				versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testpatch1.sql'\n" +
+				"Opening file 'file:/.../testpatch1.sql'\n" +
 				"    Encoding is 'ISO-8859-1'\n" +
 				"Connecting to database...\n" +
 				"The database is unmanaged.\n" +
@@ -78,14 +85,19 @@ public class CommandLineTests
 				"-url", "jdbc:hsqldb:mem:testdb",
 				"-username", "sa",
 				"-password", "",
-				"-upgradefile", "testpatch1.sql",
+				"-upgradefile", "target/test-classes/testpatch1.sql",
 				"-dumplog", "-" );
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
+		output = output.replaceAll("(Reading property file [^\\n]+\\.properties\\n)+", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 		// TODO Also test dump to file
-		Assert.assertEquals( output, "SolidBase v1.5.x (http://solidbase.org)\n" +
+		Assert.assertEquals( output, versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testpatch1.sql'\n" +
+				"Opening file 'target/test-classes/testpatch1.sql'\n" +
 		"    Encoding is 'ISO-8859-1'\n" );
 	}
 
@@ -105,12 +117,16 @@ public class CommandLineTests
 				"-upgradefile", "testpatch1.sql" );
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
-//		System.out.println( "[[[" + output + "]]]" );
+		output = output.replaceAll("(Reading property file [^\\n]+\\.properties\\n)+", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 		Assert.assertEquals( output,
-				"Reading property file file:/.../solidbase-default.properties\n" +
-				"SolidBase v1.5.x (http://solidbase.org)\n" +
+				"__READ__\n" +
+				versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testpatch1.sql'\n" +
+				"Opening file 'file:/.../testpatch1.sql'\n" +
 				"    Encoding is 'ISO-8859-1'\n" +
 				"Connecting to database...\n" +
 				"The database is unmanaged.\n" +
@@ -142,7 +158,7 @@ public class CommandLineTests
 					"-username", "sa",
 					"-password", "",
 					"-target", "100.0.*",
-					"-upgradefile", "testpatch1.sql" );
+					"-upgradefile", "target/test-classes/testpatch1.sql" );
 
 			Assert.fail( "Expected a SystemException" );
 		}
@@ -152,10 +168,15 @@ public class CommandLineTests
 		}
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
+		output = output.replaceAll("Reading property file [^\\n]+\\.properties\\n", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 		Assert.assertEquals( output,
-				"SolidBase v1.5.x (http://solidbase.org)\n" +
+				versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testpatch1.sql'\n" +
+				"Opening file 'target/test-classes/testpatch1.sql'\n" +
 				"    Encoding is 'ISO-8859-1'\n" +
 				"Connecting to database...\n" +
 				"The database is unmanaged.\n"
@@ -237,11 +258,16 @@ public class CommandLineTests
 				"-sqlfile", "testsql-sections.sql" );
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
+		output = output.replaceAll("Reading property file [^\\n]+\\.properties\\n", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 //		System.out.println( "[[[" + output + "]]]" );
 		Assert.assertEquals( output,
-				"SolidBase v1.5.x (http://solidbase.org)\n" +
+				versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testsql-sections.sql'\n" +
+				"Opening file 'file:/.../testsql-sections.sql'\n" +
 				"    Encoding is 'ISO-8859-1'\n" +
 				"Connecting to database...\n" +
 				"Creating table USERS.\n" +
@@ -275,11 +301,16 @@ public class CommandLineTests
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
 //		System.out.println( "[[[" + output + "]]]" );
+		output = output.replaceAll("Reading property file [^\\n]+\\.properties\\n", "__READ__\n");
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
+
 		Assert.assertEquals( output,
-				"Reading property file file:/.../solidbase-default.properties\n" +
-				"SolidBase v1.5.x (http://solidbase.org)\n" +
+				"__READ__\n" +
+				versie + " (http://solidbase.org)\n" +
 				"\n" +
-				"Opening file 'testpatch-skip.sql'\n" +
+				"Opening file 'file:/.../testpatch-skip.sql'\n" +
 				"    Encoding is 'ISO-8859-1'\n" +
 				"Connecting to database...\n" +
 				"The database is unmanaged.\n" +

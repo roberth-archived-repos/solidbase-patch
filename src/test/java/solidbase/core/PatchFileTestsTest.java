@@ -37,7 +37,7 @@ import solidbase.util.RandomAccessLineReader;
  * 
  * @author René M. de Bloois
  */
-public class PatchFileTests
+public class PatchFileTestsTest
 {
 	/**
 	 * Tests whether the {@link PatchFile} returns the correct set of tip targets.
@@ -47,7 +47,7 @@ public class PatchFileTests
 	@Test
 	public void testCollectTipVersions1() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File("target/test-classes/testpatch1.sql") );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		patchFile.close();
@@ -118,7 +118,7 @@ public class PatchFileTests
 	@Test
 	public void testCollectTipVersions2() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch1.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		patchFile.close();
@@ -153,7 +153,7 @@ public class PatchFileTests
 	@Test
 	public void testOpenPatch() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch1.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.close();
 

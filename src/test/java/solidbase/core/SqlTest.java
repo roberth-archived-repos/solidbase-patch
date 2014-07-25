@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 import org.testng.annotations.Test;
 
-public class Sql
+public class SqlTest
 {
 	@Test
 	public void testSql1() throws SQLException

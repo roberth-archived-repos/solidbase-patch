@@ -28,12 +28,12 @@ import org.testng.annotations.Test;
 import solidbase.util.RandomAccessLineReader;
 
 
-public class CharSets
+public class CharSetsIntegrationTest
 {
 	@Test
 	public void testIso8859() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch1.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		Assert.assertEquals( patchFile.file.getEncoding(), "ISO-8859-1" );
@@ -66,7 +66,7 @@ public class CharSets
 	@Test
 	public void testUtf16Bom() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "patch-utf-16-bom-1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/patch-utf-16-bom-1.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		Assert.assertEquals( patchFile.file.getBOM(), new byte[] { -1, -2 } );
@@ -77,7 +77,7 @@ public class CharSets
 	@Test
 	public void testUtf16BomAndExplicit() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "patch-utf-16-bom-2.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/patch-utf-16-bom-2.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		Assert.assertEquals( patchFile.file.getBOM(), new byte[] { -1, -2 } );
@@ -101,7 +101,7 @@ public class CharSets
 	@Test
 	public void testUtf16NoBom() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "patch-utf-16-nobom-1.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/patch-utf-16-nobom-1.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		patchFile.scan();
 		Assert.assertNull( patchFile.file.getBOM() );

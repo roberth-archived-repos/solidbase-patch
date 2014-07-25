@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-public class Crm
+public class CrmIntegrationTest
 {
 	@Test
 	public void testCRM() throws SQLException

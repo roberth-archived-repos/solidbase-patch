@@ -19,7 +19,7 @@ package solidbase.core;
 import java.sql.SQLException;
 import org.testng.annotations.Test;
 
-public class Conditional
+public class ConditionalIntegrationTest
 {
 	@Test
 	public void testIfHistoryContains1() throws SQLException

@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-public class Init
+public class InitIntegrationTest
 {
 	@Test
 	public void testInit1() throws SQLException

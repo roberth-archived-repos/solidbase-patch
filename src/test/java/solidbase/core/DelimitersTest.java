@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import solidbase.core.Delimiter.Type;
 
-public class Delimiters
+public class DelimitersTest
 {
 	@Test
 	public void testDelimiterRegexpCharacter()

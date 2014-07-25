@@ -25,12 +25,12 @@ import solidbase.core.FatalException;
 import solidbase.core.PatchFile;
 import solidbase.util.RandomAccessLineReader;
 
-public class MissingBlock
+public class MissingBlockTest
 {
 	@Test
 	public void testBasic() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch-missingblock.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch-missingblock.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		try
 		{
@@ -47,7 +47,7 @@ public class MissingBlock
 	@Test
 	public void testMissingInitBlock() throws IOException
 	{
-		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "testpatch-missinginitblock.sql" ) );
+		RandomAccessLineReader ralr = new RandomAccessLineReader( new File( "target/test-classes/testpatch-missinginitblock.sql" ) );
 		PatchFile patchFile = new PatchFile( ralr );
 		try
 		{

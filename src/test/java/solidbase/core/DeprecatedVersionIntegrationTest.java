@@ -2,10 +2,13 @@ package solidbase.core;
 
 import java.sql.SQLException;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.StringContains;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DeprecatedVersion
+public class DeprecatedVersionIntegrationTest
 {
 	@Test
 	public void testDeprecated1() throws SQLException
@@ -31,7 +34,10 @@ public class DeprecatedVersion
 		}
 		catch( FatalException e )
 		{
-			Assert.assertTrue( e.getMessage().contains( "The current database version 1.0.2 is not available in the upgrade file." ) );
+			MatcherAssert.assertThat( e.getMessage(), CoreMatchers.anyOf(
+					new StringContains( "The current database version 1.0.2 is not available in the upgrade file."),
+					new StringContains( "The current database version 1.0.3 is not available in the upgrade file.")
+					));
 		}
 
 		patcher.end();

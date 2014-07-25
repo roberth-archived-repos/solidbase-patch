@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-public class Downgrade
+public class DowngradeIntegrationTest
 {
 	@Test
 	public void testDowngrade() throws SQLException

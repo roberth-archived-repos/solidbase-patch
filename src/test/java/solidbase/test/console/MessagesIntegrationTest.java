@@ -7,7 +7,10 @@ import solidbase.Main;
 import solidbase.core.TestUtil;
 import solidbase.test.mocks.MockConsole;
 
-public class Messages
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class MessagesIntegrationTest
 {
 	@Test
 	static public void testMessageBeforeListener() throws Exception
@@ -23,15 +26,19 @@ public class Messages
 				"-username", "sa",
 				"-password", "",
 				"-target", "1.0.2",
-				"-upgradefile", "folder/testpatch-import1.sql" );
+				"-upgradefile", "target/test-classes/folder/testpatch-import1.sql" );
 
 		String output = TestUtil.generalizeOutput( console.getOutput() );
 //		System.out.println( "[[[" + output + "]]]" );
+
+		Matcher matcher = Pattern.compile( "SolidBase +([^ ]+)" ).matcher( output );
+		matcher.find();
+		String versie = matcher.group();
 		Assert.assertEquals( output,
 				"Reading property file file:/.../solidbase-default.properties\n" +
-						"SolidBase v1.5.x (http://solidbase.org)\n" +
+						versie + " (http://solidbase.org)\n" +
 						"\n" +
-						"Opening file 'folder/testpatch-import1.sql'\n" +
+						"Opening file 'target/test-classes/folder/testpatch-import1.sql'\n" +
 						"    Encoding is 'ISO-8859-1'\n" +
 						"Connecting to database...\n" +
 						"The database is unmanaged.\n" +

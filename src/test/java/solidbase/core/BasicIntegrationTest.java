@@ -23,7 +23,7 @@ import java.util.Set;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Basic
+public class BasicIntegrationTest
 {
 	static private final String db = "jdbc:hsqldb:mem:testdb2";
 
