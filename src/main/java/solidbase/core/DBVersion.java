@@ -661,7 +661,7 @@ public class DBVersion
 				{
 					statement.setString( 1, version );
 					int modified = statement.executeUpdate();
-					Assert.isTrue( modified <= 1, "Expecting not more than 1 record to be updated, not " + modified );
+					//Assert.isTrue( modified <= 1, "Expecting not more than 1 record to be updated, not " + modified );
 				}
 				commit = true;
 			}
