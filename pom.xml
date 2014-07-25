@@ -7,7 +7,7 @@
 	
 	<groupId>org.solidbase</groupId>
 	<artifactId>solidbase</artifactId>
-	<version>1.6.8-SNAPSHOT</version>
+	<version>1.6.8-inology</version>
 	<packaging>jar</packaging>
 
 	<name>SolidBase</name>
